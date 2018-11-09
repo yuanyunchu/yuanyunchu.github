@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--配置入口-->
+<configuration>
+    <!--加载连接数据库配置文件-->
+    <properties resource="db.properties"/>
+
+    <!--定义别名 可以在UserDao.xml文件中不写全类名-->
+    <typeAliases>
+        <package name="com.item.po"/>
+    </typeAliases>
+    <!--运行环境配置-->
+    <!--environments default:指定使用那个运行环境，指的是数据库-->
+    <environments default="mysql">
+        <!--id 唯一标识一个运行环境-->
+        <environment id="mysql">
+            <!--配置事务 默认是jdbc-->
+            <transactionManager type="JDBC"/>
+            <!--配置数据源 POOLED mybatis内部的数据源-->
+            <dataSource type="POOLED">
+                <!--配置连接四大属性，不管那个数据源都是配置的
+                    从配置文件获取属性
+                -->
+                <property name="driver" value="${db.driver}"/>
+                <property name="url" value="${db.url}"/>
+                <property name="username" value="${db.username}"/>
+                <property name="password" value="${db.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--加载接口映射文件-->
+   <mappers>
+       <!--直接扫描包，不用写全路径
+           注意：使用包扫描需要在resources创建与java创建接口UserDao同级目录下
+           等同于:<mapper resource="com/item/dao/UserDao.xml">
+       -->
+       <package name="com.item.dao"/>
+   </mappers>
+
+
+</configuration>

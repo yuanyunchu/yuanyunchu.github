@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace 对应持久层用户dao接口的类全名
+    不写类全名，谁知道你到底是要映射哪里的接口
+     mapper提供了增改删查的操作
+-->
+<mapper namespace="com.item.dao.UserDao">
+      <!--
+          id:对应是持久层UserDao接口的方法名
+          resultType:对应返回的类型：如果是集合，写的是集合里面的类型
+                     如果没有写别名的话，写的是类全名
+                     resultType="com.item.po.User"(等同下面语句)
+                     需要注意的一点：如果对象属性名与数据库的字段需要一致，如果不一致，出现null
+          resultMap:可以解决字段不匹配，但需要配置。
+         parameterType:传入对应的方法参数与接口的参数需要一致，和上面类型一样，没有别名就要写类全名
+      -->
+    <select id="findAllUser" resultType="user" >
+        SELECT *FROM USER ;
+    </select>
+
+     <!--parameterType传入的参数类型
+       #{}占位符 传入的是对象，对应也是对象的属性名
+     -->
+   <update id="alterUser" parameterType="user">
+       UPDATE user set username =#{username} where id =#{id}
+   </update>
+
+
+
+</mapper>
